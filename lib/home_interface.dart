@@ -25,15 +25,15 @@ class _MyhomepageState extends State<Myhomepage> {
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 48, 82, 110),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 40,
+              ),
               RichText(
                 text: const TextSpan(
                   text: "joke",
@@ -126,6 +126,7 @@ class _MyhomepageState extends State<Myhomepage> {
               ),
               const SizedBox(height: 25),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 10,
                 // runSpacing: 20,
                 // alignment: WrapAlignment.center,

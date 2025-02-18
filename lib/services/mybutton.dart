@@ -16,7 +16,7 @@ class Mybutton extends StatelessWidget {
       child: Container(
         // height: 36,
         // width: 80,
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Color(0xFFFFFFFF),
@@ -32,7 +32,7 @@ class Mybutton extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             text,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ),
       ),
