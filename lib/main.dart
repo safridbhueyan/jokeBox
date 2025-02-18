@@ -17,43 +17,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => JokeApi()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: true,
-        home: const JokeScreen(),
+        debugShowCheckedModeBanner: false,
+        home: Myhomepage(),
         theme: ThemeData(primarySwatch: Colors.blue),
-      ),
-    );
-  }
-}
-
-class JokeScreen extends StatefulWidget {
-  const JokeScreen({super.key});
-
-  @override
-  State<JokeScreen> createState() => _JokeScreenState();
-}
-
-class _JokeScreenState extends State<JokeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() => context.read<JokeApi>().getJoke());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<JokeApi>(
-        builder: (context, provider, child) {
-          if (provider.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (provider.error.isNotEmpty) {
-            return Center(
-                child: Text(provider.error,
-                    style: const TextStyle(color: Colors.red)));
-          }
-          return Myhomepage();
-        },
       ),
     );
   }

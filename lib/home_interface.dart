@@ -12,43 +12,50 @@ class Myhomepage extends StatefulWidget {
 
 class _MyhomepageState extends State<Myhomepage> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Provider.of<JokeApi>(context, listen: false).fetxh();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<JokeApi>(context, listen: true);
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 48, 82, 110),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: RichText(
-            text: const TextSpan(
-              text: "joke",
-              style: TextStyle(
-                color: Color(0xFFFFFFFF),
-                fontFamily: 'Trajan Pro',
-                fontSize: 35,
-              ),
-              children: [
-                TextSpan(
-                  text: "Box",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Trajan Pro',
-                    fontSize: 38,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )
-              ],
-            ),
-          ),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20),
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 48, 82, 110),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
+              RichText(
+                text: const TextSpan(
+                  text: "joke",
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontFamily: 'Trajan Pro',
+                    fontSize: 35,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: "Box",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Trajan Pro',
+                        fontSize: 38,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
               Stack(
                 children: [
                   Container(
@@ -69,72 +76,104 @@ class _MyhomepageState extends State<Myhomepage> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(25),
-                    height: 290,
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      color: const Color.fromARGB(255, 236, 227, 230),
-                      border: Border.all(color: Colors.black12),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Container(
+                      margin: const EdgeInsets.all(25),
+                      height: 290,
+                      width: MediaQuery.of(context).size.width * 0.86,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        color: const Color.fromARGB(255, 236, 227, 230),
+                        border: Border.all(color: Colors.black12),
+                      ),
+                      child: Center(
+                        child: provider.isloading!
+                            ? const CircularProgressIndicator(
+                                color: Color.fromARGB(255, 3, 73, 114),
+                              )
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5, right: 5),
+                                    child: Text(
+                                      provider.joke?.setup ??
+                                          "No joke available",
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5, right: 5),
+                                    child: Text(
+                                      provider.joke?.delivery ?? "Keep waiting",
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ),
                     ),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            provider.joke!.setup.toString() ??
-                                "No joke available",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                              provider.joke!.delivery.toString() ??
-                                  "keep waiting",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w500)),
-                        ]),
                   ),
                 ],
               ),
               const SizedBox(height: 25),
-              Wrap(
+              Row(
                 spacing: 10,
-                runSpacing: 20,
-                alignment: WrapAlignment.center,
-                children: const [
-                  Mybutton(text: "Dark"),
-                  Mybutton(text: "Racist"),
-                  Mybutton(text: "NfSW"),
-                  Mybutton(text: "Political"),
+                // runSpacing: 20,
+                // alignment: WrapAlignment.center,
+                children: [
+                  Mybutton(
+                    text: "Dark",
+                    ontap: () => provider.steFlage("sexist"),
+                  ),
+                  Mybutton(
+                    text: "Racist",
+                    ontap: () => provider.steFlage("racist"),
+                  ),
+                  Mybutton(
+                    text: "NfSW",
+                    ontap: () => provider.steFlage("nfsw"),
+                  ),
+                  Mybutton(
+                    text: "Political",
+                    ontap: () => provider.steFlage("political"),
+                  ),
                 ],
               ),
               const SizedBox(height: 25),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Mybutton(text: "Pun"),
-                    SizedBox(width: 15),
-                    Mybutton(text: "Spooky"),
+                  children: [
+                    Mybutton(
+                      text: "Pun",
+                      ontap: () => provider.steFlage("religious"),
+                    ),
+                    const SizedBox(width: 15),
+                    Mybutton(
+                      text: "Spooky",
+                      ontap: () => provider.steFlage("explicit"),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 35,
-              ),
+              const SizedBox(height: 35),
               Center(
                 child: Mybutton2(
-                  text: "get the joke",
+                  text: "Get the joke",
                   ontap: () {
-                    provider.getJoke();
+                    provider.fetxh();
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -14,8 +14,9 @@ class Mybutton extends StatelessWidget {
     return GestureDetector(
       onTap: ontap,
       child: Container(
-        height: 35,
-        width: 80,
+        // height: 36,
+        // width: 80,
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Color(0xFFFFFFFF),
@@ -25,15 +26,15 @@ class Mybutton extends StatelessWidget {
                   offset: Offset(5.5, 8.5),
                   blurRadius: 15.5),
             ]),
-        child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              softWrap: true,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              text,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            )),
+        child: Center(
+          child: Text(
+            softWrap: true,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            text,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
       ),
     );
   }
@@ -53,8 +54,7 @@ class Mybutton2 extends StatelessWidget {
     return GestureDetector(
       onTap: ontap,
       child: Container(
-        height: 40,
-        width: 150,
+        padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Color(0xFFFFFFFF),
@@ -64,15 +64,18 @@ class Mybutton2 extends StatelessWidget {
                   offset: Offset(5.5, 8.5),
                   blurRadius: 15.5),
             ]),
-        child: Align(
-            alignment: Alignment.center,
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Center(
             child: Text(
               softWrap: true,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               text,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

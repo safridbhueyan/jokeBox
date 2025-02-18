@@ -6,51 +6,46 @@ import 'package:jokeapi/model/joke_model.dart';
 class JokeApi with ChangeNotifier {
   static const String baseUrl = "https://v2.jokeapi.dev";
   static const String endpoint = "/joke/Any";
-
   jokemodel? _joke;
-  bool _isLoading = false;
-  String _error = '';
-
-  // Getters
   jokemodel? get joke => _joke;
-  bool get isLoading => _isLoading;
-  String get error => _error;
-
-  Future<void> getJoke() async {
+  bool? _isloading = false;
+  bool? get isloading => _isloading;
+  void steFlage(String flag) async {
+    _isloading = true;
+    notifyListeners();
     try {
-      _isLoading = true;
-      _error = '';
-      _joke = null; // Reset joke before fetching
-      notifyListeners();
-
-      final Uri url = Uri.parse('$baseUrl$endpoint');
-      final response = await http.get(url).timeout(
-        const Duration(seconds: 10),
-        onTimeout: () {
-          throw Exception('Connection timeout');
-        },
-      );
+      var response = await http
+          .get(Uri.parse(baseUrl + endpoint + "?blacklistFlags" + flag));
+      final objectdata = jsonDecode(response.body);
+      debugPrint("\n\n  ${response.body}  \n\n");
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        _joke = jokemodel.fromJson(data);
-        debugPrint("\n\n ${joke!.setup}");
-      } else if (response.statusCode == 404) {
-        throw Exception('Joke not found');
-      } else if (response.statusCode >= 500) {
-        throw Exception('Server error');
-      } else {
-        throw Exception('Failed to load joke: ${response.statusCode}');
+        _joke = jokemodel.fromJson(objectdata);
+        notifyListeners();
       }
-    } on FormatException {
-      _error = 'Invalid response format';
-    } on http.ClientException {
-      _error = 'Network error occurred';
     } catch (e) {
-      _error = e.toString();
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+      debugPrint("\n\n $e \n\n");
     }
+    _isloading = false;
+    notifyListeners();
+  }
+
+  Future<dynamic> fetxh() async {
+    _isloading = true;
+    notifyListeners();
+    try {
+      var response = await http.get(Uri.parse(baseUrl + endpoint));
+      final objectdata = jsonDecode(response.body);
+      debugPrint("\n\n  ${response.body}  \n\n");
+
+      if (response.statusCode == 200) {
+        _joke = jokemodel.fromJson(objectdata);
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint("\n\n $e \n\n");
+    }
+    _isloading = false;
+    notifyListeners();
   }
 }
