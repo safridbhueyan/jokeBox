@@ -22,6 +22,10 @@ class _MyhomepageState extends State<Myhomepage> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordControlle = TextEditingController();
+    TextEditingController confrimController = TextEditingController();
+
     final provider = Provider.of<JokeApi>(context, listen: true);
 
     return Scaffold(
@@ -182,7 +186,11 @@ class _MyhomepageState extends State<Myhomepage> {
                   // Mybutton2(text: "Get premium access")
                   TextButton(
                       onPressed: () {
-                        showbottomSheet(context: context);
+                        showbottomSheet(
+                            context: context,
+                            email: emailController.toString(),
+                            password: passwordControlle.toString(),
+                            confrim: confrimController.toString());
                         // Navigator.push(context, MaterialPageRoute(builder: (context)=> ));
                       },
                       child: Text(
@@ -193,6 +201,24 @@ class _MyhomepageState extends State<Myhomepage> {
                             decoration: TextDecoration.underline,
                             decorationColor: Color(0xFFFFFFFF)),
                       )),
+
+                  TextButton(
+                    onPressed: () {
+                      showbottomSheet2(
+                        context: context,
+                        email: emailController.toString(),
+                        password: passwordControlle.toString(),
+                      );
+                    },
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFFFFFFFF),
+                          decoration: TextDecoration.underline,
+                          decorationColor: Color(0xFFFFFFFF)),
+                    ),
+                  ),
                 ]),
               ),
             ],

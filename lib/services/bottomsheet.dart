@@ -143,3 +143,101 @@ void showbottomSheet({
         );
       });
 }
+
+void showbottomSheet2({
+  required BuildContext context,
+  String? email,
+  String? password,
+}) {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  showModalBottomSheet(
+      context: context,
+      backgroundColor: Color(0xFFFFFFFF),
+      isScrollControlled: true,
+      useSafeArea: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(12),
+        ),
+      ),
+      builder: (context) {
+        var getx = context.watch<Allprovider>();
+        return Container(
+          width: double.infinity,
+          height: 460,
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: SingleChildScrollView(
+            child: DottedBorder(
+              padding: EdgeInsets.all(20),
+              borderType: BorderType.RRect,
+              radius: Radius.circular(16),
+              dashPattern: [6, 3],
+              color: Colors.grey.shade400,
+              strokeWidth: 2,
+              child: Center(
+                child: Container(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 25, right: 25, top: 5, bottom: 5),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Login to see shit 💀",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          softWrap: true,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: email,
+                          decoration: inputDecoration(
+                              text1: "Email🐸",
+                              icon: Icon(Icons.email_outlined)),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: password,
+                          obscureText: getx.isVisible,
+                          decoration: inputDecoration(
+                            text1: "Password💀",
+                            icon: getx.isVisible
+                                ? Icon(Icons.visibility_off_outlined)
+                                : Icon(Icons.visibility_outlined),
+                            onTap: getx.toggle,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Mybutton3(
+                          text: "Login",
+                          colorx: const Color.fromARGB(255, 48, 82, 110),
+                          colory: Color(0xFFFFFFFF),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      });
+}
