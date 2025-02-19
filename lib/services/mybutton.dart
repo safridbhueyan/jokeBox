@@ -40,6 +40,7 @@ class Mybutton extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Mybutton2 extends StatelessWidget {
   final String text;
   final Function()? ontap;
@@ -83,6 +84,7 @@ class Mybutton2 extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Mybutton3 extends StatelessWidget {
   final String text;
   final Function()? ontap;

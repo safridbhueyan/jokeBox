@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:jokeapi/services/allprovider.dart';
+import 'package:jokeapi/services/firebaseAuth.dart';
 import 'package:jokeapi/services/mybutton.dart';
 import 'package:provider/provider.dart';
 
@@ -29,10 +30,11 @@ void showbottomSheet({
   String? email,
   String? password,
   String? confrim,
+  dynamic Function()? ontap,
 }) {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  TextEditingController confirm = TextEditingController();
+  TextEditingController confirmPass = TextEditingController();
   showModalBottomSheet(
       context: context,
       backgroundColor: Color(0xFFFFFFFF),
@@ -45,6 +47,7 @@ void showbottomSheet({
       ),
       builder: (context) {
         var getx = context.watch<Allprovider>();
+
         return Container(
           width: double.infinity,
           height: 460,
@@ -115,7 +118,7 @@ void showbottomSheet({
                           height: 10,
                         ),
                         TextFormField(
-                          controller: confirm,
+                          controller: confirmPass,
                           obscureText: getx.isVisible,
                           decoration: inputDecoration(
                             text1: "Confirm Passwords💀",
@@ -129,6 +132,38 @@ void showbottomSheet({
                           height: 20,
                         ),
                         Mybutton3(
+                          ontap: ontap,
+
+                          // () async {
+                          //   if (password.text == confirmPass &&
+                          //       password.text.isNotEmpty) {
+                          //     if (fyacall.isLoading) {
+                          //       return;
+                          //     }
+                          //     await fyacall.register(email.text, password.text);
+
+                          //     if (!fyacall.isLoading) {
+                          //       showDialog(
+                          //         context: context,
+                          //         builder: (context) => AlertDialog(
+                          //           title: Text("Your set to go 🦇✔"),
+                          //           backgroundColor:
+                          //               Color.fromARGB(255, 147, 190, 214),
+                          //         ),
+                          //       );
+                          //     }
+                          //   } else {
+                          //     showDialog(
+                          //         context: context,
+                          //         builder: (context) => AlertDialog(
+                          //               title: Text(
+                          //                   "passWOrd and yo bitch ass doesnt match biyatch"),
+                          //               backgroundColor:
+                          //                   Color.fromARGB(255, 147, 190, 214),
+                          //             ));
+                          //   }
+                          // },
+
                           text: "Register",
                           colorx: const Color.fromARGB(255, 48, 82, 110),
                           colory: Color(0xFFFFFFFF),
@@ -148,6 +183,7 @@ void showbottomSheet2({
   required BuildContext context,
   String? email,
   String? password,
+  dynamic Function()? ontap,
 }) {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -164,6 +200,7 @@ void showbottomSheet2({
       ),
       builder: (context) {
         var getx = context.watch<Allprovider>();
+        final fyacall = context.watch<Fya>();
         return Container(
           width: double.infinity,
           height: 400,
@@ -222,6 +259,35 @@ void showbottomSheet2({
                                 : Icon(Icons.visibility_outlined),
                             onTap: getx.toggle,
                           ),
+                          onTap: ontap,
+
+                          //  () async {
+                          //   if (email.text.isNotEmpty &&
+                          //       password.text.isNotEmpty) {
+                          //     if (fyacall.isLoading) {
+                          //       return;
+                          //     }
+                          //     await fyacall.login(email.text, password.text);
+                          //     if (fyacall.isLoading)
+                          //       showDialog(
+                          //           context: context,
+                          //           builder: (context) => AlertDialog(
+                          //                 title:
+                          //                     Text("Now what ??? 👀🤣🤣🤷‍♂️"),
+                          //                 backgroundColor: Color.fromARGB(
+                          //                     255, 147, 190, 214),
+                          //               ));
+                          //   } else {
+                          //     showDialog(
+                          //         context: context,
+                          //         builder: (context) => AlertDialog(
+                          //               title: Text(
+                          //                   "Fill yo bitchh ass up biggah😤"),
+                          //               backgroundColor:
+                          //                   Color.fromARGB(255, 147, 190, 214),
+                          //             ));
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: 10,

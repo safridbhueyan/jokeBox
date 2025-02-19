@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jokeapi/services/bottomsheet.dart';
+import 'package:jokeapi/services/firebaseAuth.dart';
 import 'package:jokeapi/services/joke_api.dart';
 import 'package:jokeapi/services/mybutton.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class _MyhomepageState extends State<Myhomepage> {
     TextEditingController confrimController = TextEditingController();
 
     final provider = Provider.of<JokeApi>(context, listen: true);
-
+    final fyacall = context.watch<Fya>();
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 48, 82, 110),
       body: Padding(
@@ -195,11 +196,42 @@ class _MyhomepageState extends State<Myhomepage> {
                           ), // Shrinks touch area
                           onPressed: () {
                             showbottomSheet(
-                                context: context,
-                                email: emailController.toString(),
-                                password: passwordControlle.toString(),
-                                confrim: confrimController.toString());
-                            // Navigator.push(context, MaterialPageRoute(builder: (context)=> ));
+                              context: context,
+                              email: emailController.toString(),
+                              password: passwordControlle.toString(),
+                              confrim: confrimController.toString(),
+                              ontap: () async {
+                                if (passwordControlle.text ==
+                                        confrimController &&
+                                    passwordControlle.text.isNotEmpty) {
+                                  if (fyacall.isLoading) {
+                                    return;
+                                  }
+                                  await fyacall.register(emailController.text,
+                                      passwordControlle.text);
+
+                                  if (!fyacall.isLoading) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text("Your set to go 🦇✔"),
+                                        backgroundColor:
+                                            Color.fromARGB(255, 147, 190, 214),
+                                      ),
+                                    );
+                                  }
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: Text(
+                                                "passWOrd and yo bitch ass doesnt match biyatch"),
+                                            backgroundColor: Color.fromARGB(
+                                                255, 147, 190, 214),
+                                          ));
+                                }
+                              },
+                            );
                           },
                           child: Text(
                             "Get premium access",
@@ -223,6 +255,34 @@ class _MyhomepageState extends State<Myhomepage> {
                             context: context,
                             email: emailController.toString(),
                             password: passwordControlle.toString(),
+                            ontap: () async {
+                              if (emailController.text.isNotEmpty &&
+                                  passwordControlle.text.isNotEmpty) {
+                                if (fyacall.isLoading) {
+                                  return;
+                                }
+                                await fyacall.login(emailController.text,
+                                    passwordControlle.text);
+                                if (fyacall.isLoading)
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: Text(
+                                                "Now what ??? 👀🤣🤣🤷‍♂️"),
+                                            backgroundColor: Color.fromARGB(
+                                                255, 147, 190, 214),
+                                          ));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text(
+                                              "Fill yo bitchh ass up biggah😤"),
+                                          backgroundColor: Color.fromARGB(
+                                              255, 147, 190, 214),
+                                        ));
+                              }
+                            },
                           );
                         },
                         child: Text(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "231663633502",
+    "project_id": "jokebox-3d76c",
+    "storage_bucket": "jokebox-3d76c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231663633502:android:2cf68d69218f2eabf0a0cf",
+        "android_client_info": {
+          "package_name": "com.example.jokeapi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq9iptioB0-AgMmo9Gw6Qib65ofvLh3iI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
