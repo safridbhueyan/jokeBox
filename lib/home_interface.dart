@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jokeapi/services/bottomsheet.dart';
 import 'package:jokeapi/services/joke_api.dart';
 import 'package:jokeapi/services/mybutton.dart';
 import 'package:provider/provider.dart';
@@ -168,12 +169,31 @@ class _MyhomepageState extends State<Myhomepage> {
               ),
               const SizedBox(height: 35),
               Center(
-                child: Mybutton2(
-                  text: "Get the joke",
-                  ontap: () {
-                    provider.fetxh();
-                  },
-                ),
+                child: Column(children: [
+                  Mybutton2(
+                    text: "Get the joke",
+                    ontap: () {
+                      provider.fetxh();
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // Mybutton2(text: "Get premium access")
+                  TextButton(
+                      onPressed: () {
+                        showbottomSheet(context: context);
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=> ));
+                      },
+                      child: Text(
+                        "Get premium access",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFFFFFFFF),
+                            decoration: TextDecoration.underline,
+                            decorationColor: Color(0xFFFFFFFF)),
+                      )),
+                ]),
               ),
             ],
           ),
