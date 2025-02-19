@@ -181,44 +181,61 @@ class _MyhomepageState extends State<Myhomepage> {
                     },
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   // Mybutton2(text: "Get premium access")
-                  TextButton(
-                      onPressed: () {
-                        showbottomSheet(
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ), // Shrinks touch area
+                          onPressed: () {
+                            showbottomSheet(
+                                context: context,
+                                email: emailController.toString(),
+                                password: passwordControlle.toString(),
+                                confrim: confrimController.toString());
+                            // Navigator.push(context, MaterialPageRoute(builder: (context)=> ));
+                          },
+                          child: Text(
+                            "Get premium access",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFFFFFFFF),
+                                decoration: TextDecoration.underline,
+                                decorationColor: Color(0xFFFFFFFF)),
+                          )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          minimumSize: Size(0, 0),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ), // Shrinks touch area
+                        onPressed: () {
+                          showbottomSheet2(
                             context: context,
                             email: emailController.toString(),
                             password: passwordControlle.toString(),
-                            confrim: confrimController.toString());
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=> ));
-                      },
-                      child: Text(
-                        "Get premium access",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFFFFFFFF),
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFFFFFFFF)),
-                      )),
-
-                  TextButton(
-                    onPressed: () {
-                      showbottomSheet2(
-                        context: context,
-                        email: emailController.toString(),
-                        password: passwordControlle.toString(),
-                      );
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFFFFFFFF),
-                          decoration: TextDecoration.underline,
-                          decorationColor: Color(0xFFFFFFFF)),
-                    ),
-                  ),
+                          );
+                        },
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFFFFFFFF),
+                              decoration: TextDecoration.underline,
+                              decorationColor: Color(0xFFFFFFFF)),
+                        ),
+                      ),
+                    ],
+                  )
                 ]),
               ),
             ],

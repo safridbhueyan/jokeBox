@@ -166,7 +166,7 @@ void showbottomSheet2({
         var getx = context.watch<Allprovider>();
         return Container(
           width: double.infinity,
-          height: 460,
+          height: 400,
           padding: EdgeInsets.all(20),
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
