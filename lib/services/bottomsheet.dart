@@ -1,11 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:jokeapi/services/allprovider.dart';
 import 'package:jokeapi/services/mybutton.dart';
+import 'package:provider/provider.dart';
 
-InputDecoration inputDecoration({
-  String? text1,
-  Widget? icon,
-}) {
+InputDecoration inputDecoration(
+    {String? text1, Widget? icon, void Function()? onTap}) {
   return InputDecoration(
     label: Text(text1!),
     enabledBorder: OutlineInputBorder(
@@ -20,7 +20,7 @@ InputDecoration inputDecoration({
       borderRadius: BorderRadius.circular(12),
     ),
     fillColor: Color(0xFFFFFFFF),
-    suffixIcon: icon,
+    suffixIcon: GestureDetector(onTap: onTap, child: icon),
   );
 }
 
@@ -44,6 +44,7 @@ void showbottomSheet({
         ),
       ),
       builder: (context) {
+        var getx = context.watch<Allprovider>();
         return Container(
           width: double.infinity,
           height: 460,
@@ -101,18 +102,28 @@ void showbottomSheet({
                         ),
                         TextFormField(
                           controller: password,
+                          obscureText: getx.isVisible,
                           decoration: inputDecoration(
-                              text1: "Password💀",
-                              icon: Icon(Icons.visibility_off_outlined)),
+                            text1: "Password💀",
+                            icon: getx.isVisible
+                                ? Icon(Icons.visibility_off_outlined)
+                                : Icon(Icons.visibility_outlined),
+                            onTap: getx.toggle,
+                          ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           controller: confirm,
+                          obscureText: getx.isVisible,
                           decoration: inputDecoration(
-                              text1: "Confirm Passwords💀",
-                              icon: Icon(Icons.visibility_off_outlined)),
+                            text1: "Confirm Passwords💀",
+                            icon: getx.isVisible
+                                ? Icon(Icons.visibility_off_outlined)
+                                : Icon(Icons.visibility_outlined),
+                            onTap: () => getx.toggle(),
+                          ),
                         ),
                         SizedBox(
                           height: 20,
