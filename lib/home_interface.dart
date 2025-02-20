@@ -28,7 +28,7 @@ class _MyhomepageState extends State<Myhomepage> {
     TextEditingController confrimController = TextEditingController();
 
     final provider = Provider.of<JokeApi>(context, listen: true);
-    final fyacall = context.watch<Fya>();
+    final fyacall = context.read<Fya>();
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 48, 82, 110),
       body: Padding(

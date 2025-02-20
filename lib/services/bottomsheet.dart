@@ -200,7 +200,7 @@ void showbottomSheet2({
       ),
       builder: (context) {
         var getx = context.watch<Allprovider>();
-        final fyacall = context.watch<Fya>();
+        // final fyacall = context.watch<Fya>();
         return Container(
           width: double.infinity,
           height: 400,
