@@ -1,7 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:jokeapi/services/allprovider.dart';
-import 'package:jokeapi/services/firebaseAuth.dart';
 import 'package:jokeapi/services/mybutton.dart';
 import 'package:provider/provider.dart';
 

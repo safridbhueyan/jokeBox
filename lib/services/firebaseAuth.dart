@@ -28,7 +28,7 @@ class Fya with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: pass);
+      var cred = _auth.signInWithEmailAndPassword(email: email, password: pass);
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       debugPrint("\n\n $e \n\n");

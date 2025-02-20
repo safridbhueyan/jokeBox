@@ -13,6 +13,9 @@ class Myhomepage extends StatefulWidget {
 }
 
 class _MyhomepageState extends State<Myhomepage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confrimController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -23,12 +26,40 @@ class _MyhomepageState extends State<Myhomepage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordControlle = TextEditingController();
-    TextEditingController confrimController = TextEditingController();
-
     final provider = Provider.of<JokeApi>(context, listen: true);
     final fyacall = context.read<Fya>();
+
+    void login() async {
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      if (email.isEmpty || password.isEmpty) {
+        print("Please enter both email and password");
+        return;
+      }
+
+      await fyacall.login(email, password);
+    }
+
+    void register() async {
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      if (email.isEmpty || password.isEmpty) {
+        print("Please enter both email and password");
+        return;
+      }
+      @override
+      // ignore: unused_element
+      void dispose() {
+        emailController.clear();
+        passwordController.clear();
+        confrimController.clear();
+      }
+
+      await fyacall.register(email, password);
+    }
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 48, 82, 110),
       body: Padding(
@@ -197,40 +228,39 @@ class _MyhomepageState extends State<Myhomepage> {
                           onPressed: () {
                             showbottomSheet(
                               context: context,
-                              email: emailController.toString(),
-                              password: passwordControlle.toString(),
-                              confrim: confrimController.toString(),
-                              ontap: () async {
-                                if (passwordControlle.text ==
-                                        confrimController &&
-                                    passwordControlle.text.isNotEmpty) {
-                                  if (fyacall.isLoading) {
-                                    return;
-                                  }
-                                  await fyacall.register(emailController.text,
-                                      passwordControlle.text);
+                              email: emailController.text,
+                              password: passwordController.text,
+                              confrim: confrimController.text,
+                              ontap: register,
 
-                                  if (!fyacall.isLoading) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text("Your set to go 🦇✔"),
-                                        backgroundColor:
-                                            Color.fromARGB(255, 147, 190, 214),
-                                      ),
-                                    );
-                                  }
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                            title: Text(
-                                                "passWOrd and yo bitch ass doesnt match biyatch"),
-                                            backgroundColor: Color.fromARGB(
-                                                255, 147, 190, 214),
-                                          ));
-                                }
-                              },
+                              //  () async {
+                              //   if (passwordControlle.text ==
+                              //           confrimController &&
+                              //       passwordControlle.text.isNotEmpty) {
+                              //     if (fyacall.isLoading) {
+                              //       return;
+                              //     }
+                              //     await fyacall.register(emailController.text,
+                              //         passwordControlle.text);
+
+                              //     if (!fyacall.isLoading) {
+                              //       showDialog(
+                              //         context: context,
+                              //         builder: (context) => AlertDialog(
+                              //           title: Text("Your set to go 🦇✔"),
+                              //           backgroundColor:
+                              //               Color.fromARGB(255, 147, 190, 214),
+                              //         ),
+                              //       );
+                              //     }
+                              //   } else {
+                              //     showDialog(
+                              //         context: context,
+                              //         builder: (context) => AlertDialog(
+                              //               title: Text(
+                              //                   "passWOrd and yo bitch ass doesnt match biyatch"),
+                              //               backgroundColor: Color.fromARGB(
+                              //                   255, 147, 190, 214),
                             );
                           },
                           child: Text(
@@ -253,38 +283,30 @@ class _MyhomepageState extends State<Myhomepage> {
                         onPressed: () {
                           showbottomSheet2(
                             context: context,
-                            email: emailController.toString(),
-                            password: passwordControlle.toString(),
-                            ontap: () async {
-                              if (emailController.text.isNotEmpty &&
-                                  passwordControlle.text.isNotEmpty) {
-                                if (fyacall.isLoading) {
-                                  return;
-                                }
-                                await fyacall.login(emailController.text,
-                                    passwordControlle.text);
-                                if (fyacall.isLoading)
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                            title: Text(
-                                                "Now what ??? 👀🤣🤣🤷‍♂️"),
-                                            backgroundColor: Color.fromARGB(
-                                                255, 147, 190, 214),
-                                          ));
-                              } else {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          title: Text(
-                                              "Fill yo bitchh ass up biggah😤"),
-                                          backgroundColor: Color.fromARGB(
-                                              255, 147, 190, 214),
-                                        ));
-                              }
-                            },
+                            email: emailController.text,
+                            password: passwordController.text,
+                            ontap: login,
+
+                            // ?  showDialog(
+                            //           context: context,
+                            //           builder: (context) => AlertDialog(
+                            //                 title: Text(
+                            //                     "Now what ??? 👀🤣🤣🤷‍♂️"),
+                            //                 backgroundColor: Color.fromARGB(
+                            //                     255, 147, 190, 214),
+                            //               )):
+
+                            //     showDialog(
+                            //         context: context,
+                            //         builder: (context) => AlertDialog(
+                            //               title: Text(
+                            //                   "Fill yo bitchh ass up biggah😤"),
+                            //               backgroundColor: Color.fromARGB(
+                            //                   255, 147, 190, 214),
+                            //             )):
                           );
                         },
+
                         child: Text(
                           "Login",
                           style: TextStyle(
